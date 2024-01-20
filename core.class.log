@@ -1,0 +1,570 @@
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: 'BDEDEB9967B1478CEA07A6B849BF5981',
+    participant: undefined
+  },
+  messageTimestamp: 1705716793,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: 'Buenas noches',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'Buenas noches',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_9d85a1d4-ee4e-481d-b716-9c66dabf5e91',
+  keyword: 'key_f092b65a-4cca-4839-b4d6-fb4e207e1992',
+  answer: '😊BIENVENIDO👌gracias por contactar al ilustre colegio de abogados de apurimac 😊',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: 'd70737e169950b08e147cc9101e23cfd'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ea93bf2e-d891-4532-ab8d-43d47ad983b5',
+  keyword: 'ans_9d85a1d4-ee4e-481d-b716-9c66dabf5e91',
+  answer: '🫡 te presentamos nuestro ChaTbot oficial que puede resolver tus consultas\n' +
+    'Para comenzar con tu consulta, elige una de las opciones que preparamos para ti 😉\n' +
+    ' 1 --> consultar su habilidad😎\n' +
+    ' 2 --> ultima constancia de habilidad🤨\n' +
+    ' 3 --> ver ultimo aporte🤑',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [ [Object], [Object] ],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '39d2cda65dd3408d481c55f6040b8cb0'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: 'A62CC39C19556AEFC5EBEE031B7234C2',
+    participant: undefined
+  },
+  messageTimestamp: 1705716798,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '1',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '1',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ad90c507-4e7e-41be-bcd3-33634a0f5a66',
+  keyword: 'key_fd1c6b0b-356c-4ae6-9a0b-1f010cb4a08a',
+  answer: 'Parece que deseas saber si eres un colegiado habilitado o no 😁Para ello indicanos tu numero de colegiatura 😁',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'a25de981d0a91e8b4cb2bd6adcf86fdd'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '6F03D39AF516FFAEFD23CCDFFA3EEE45',
+    participant: undefined
+  },
+  messageTimestamp: 1705716819,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '137612',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '137612',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ad90c507-4e7e-41be-bcd3-33634a0f5a66',
+  keyword: 'key_fd1c6b0b-356c-4ae6-9a0b-1f010cb4a08a',
+  answer: 'Parece que deseas saber si eres un colegiado habilitado o no 😁Para ello indicanos tu numero de colegiatura 😁',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '01a045d6fa3294006b8e11a72fbc67d5'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '8EEB5DE86456A7A74F15504F91DBFEB3',
+    participant: undefined
+  },
+  messageTimestamp: 1705716856,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: 'A',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'A',
+  from: '51992570983'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '7E5224C254F2E63263CEBDACEE1A2296',
+    participant: undefined
+  },
+  messageTimestamp: 1705716863,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '1hshda',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '1hshda',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ad90c507-4e7e-41be-bcd3-33634a0f5a66',
+  keyword: 'key_fd1c6b0b-356c-4ae6-9a0b-1f010cb4a08a',
+  answer: 'Parece que deseas saber si eres un colegiado habilitado o no 😁Para ello indicanos tu numero de colegiatura 😁',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '01a045d6fa3294006b8e11a72fbc67d5'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: 'D7EFBD5D80B50DC4D8D3C0B48CF06584',
+    participant: undefined
+  },
+  messageTimestamp: 1705716869,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: 'No',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'No',
+  from: '51992570983'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '1CCBAE965B694018792A355D216090CC',
+    participant: undefined
+  },
+  messageTimestamp: 1705716871,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: 'N9',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'N9',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_9d85a1d4-ee4e-481d-b716-9c66dabf5e91',
+  keyword: 'key_f092b65a-4cca-4839-b4d6-fb4e207e1992',
+  answer: '😊BIENVENIDO👌gracias por contactar al ilustre colegio de abogados de apurimac 😊',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: 'd70737e169950b08e147cc9101e23cfd'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ea93bf2e-d891-4532-ab8d-43d47ad983b5',
+  keyword: 'ans_9d85a1d4-ee4e-481d-b716-9c66dabf5e91',
+  answer: '🫡 te presentamos nuestro ChaTbot oficial que puede resolver tus consultas\n' +
+    'Para comenzar con tu consulta, elige una de las opciones que preparamos para ti 😉\n' +
+    ' 1 --> consultar su habilidad😎\n' +
+    ' 2 --> ultima constancia de habilidad🤨\n' +
+    ' 3 --> ver ultimo aporte🤑',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [ [Object], [Object] ],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '39d2cda65dd3408d481c55f6040b8cb0'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: 'EB9A139CF0C1729334740EC819A6D065',
+    participant: undefined
+  },
+  messageTimestamp: 1705716875,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '7',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '7',
+  from: '51992570983'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: 'B4EE5371DABDAF09120105DAB8917B0A',
+    participant: undefined
+  },
+  messageTimestamp: 1705716881,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '0',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '0',
+  from: '51992570983'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '327E8A1DC780A1D0A4D7280577D94515',
+    participant: undefined
+  },
+  messageTimestamp: 1705716884,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '2',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '2',
+  from: '51992570983'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '79A7FC6D5C0E7FC18638216339AF507D',
+    participant: undefined
+  },
+  messageTimestamp: 1705716886,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: 'No',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'No',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_9d85a1d4-ee4e-481d-b716-9c66dabf5e91',
+  keyword: 'key_f092b65a-4cca-4839-b4d6-fb4e207e1992',
+  answer: '😊BIENVENIDO👌gracias por contactar al ilustre colegio de abogados de apurimac 😊',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: 'd70737e169950b08e147cc9101e23cfd'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ea93bf2e-d891-4532-ab8d-43d47ad983b5',
+  keyword: 'ans_9d85a1d4-ee4e-481d-b716-9c66dabf5e91',
+  answer: '🫡 te presentamos nuestro ChaTbot oficial que puede resolver tus consultas\n' +
+    'Para comenzar con tu consulta, elige una de las opciones que preparamos para ti 😉\n' +
+    ' 1 --> consultar su habilidad😎\n' +
+    ' 2 --> ultima constancia de habilidad🤨\n' +
+    ' 3 --> ver ultimo aporte🤑',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [ [Object], [Object] ],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '39d2cda65dd3408d481c55f6040b8cb0'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '54B89E325D06177CB91C2F3F22414E76',
+    participant: undefined
+  },
+  messageTimestamp: 1705716889,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '1',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '1',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ad90c507-4e7e-41be-bcd3-33634a0f5a66',
+  keyword: 'key_fd1c6b0b-356c-4ae6-9a0b-1f010cb4a08a',
+  answer: 'Parece que deseas saber si eres un colegiado habilitado o no 😁Para ello indicanos tu numero de colegiatura 😁',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'a25de981d0a91e8b4cb2bd6adcf86fdd'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '5DF3C5B5976BACC17BCC2CAB907F8B7C',
+    participant: undefined
+  },
+  messageTimestamp: 1705716895,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '757384',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '757384',
+  from: '51992570983'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '1A586C77E0E17EDAC46ABF84CD450170',
+    participant: undefined
+  },
+  messageTimestamp: 1705716920,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: 'Ejje',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'Ejje',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_9d85a1d4-ee4e-481d-b716-9c66dabf5e91',
+  keyword: 'key_f092b65a-4cca-4839-b4d6-fb4e207e1992',
+  answer: '😊BIENVENIDO👌gracias por contactar al ilustre colegio de abogados de apurimac 😊',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: 'd70737e169950b08e147cc9101e23cfd'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ea93bf2e-d891-4532-ab8d-43d47ad983b5',
+  keyword: 'ans_9d85a1d4-ee4e-481d-b716-9c66dabf5e91',
+  answer: '🫡 te presentamos nuestro ChaTbot oficial que puede resolver tus consultas\n' +
+    'Para comenzar con tu consulta, elige una de las opciones que preparamos para ti 😉\n' +
+    ' 1 --> consultar su habilidad😎\n' +
+    ' 2 --> ultima constancia de habilidad🤨\n' +
+    ' 3 --> ver ultimo aporte🤑',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [ [Object], [Object] ],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '39d2cda65dd3408d481c55f6040b8cb0'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: '78D669836A4E50AD3AC8A2EB257C8E7F',
+    participant: undefined
+  },
+  messageTimestamp: 1705716923,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: 'Jsuwje',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'Jsuwje',
+  from: '51992570983'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '51992570983@s.whatsapp.net',
+    fromMe: false,
+    id: 'E920205D33EC4D259E316F1D4EF98A48',
+    participant: undefined
+  },
+  messageTimestamp: 1705716926,
+  pushName: 'Jessica Blanco',
+  broadcast: false,
+  message: Message {
+    conversation: '6e62611',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: '6e62611',
+  from: '51992570983'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ad90c507-4e7e-41be-bcd3-33634a0f5a66',
+  keyword: 'key_fd1c6b0b-356c-4ae6-9a0b-1f010cb4a08a',
+  answer: 'Parece que deseas saber si eres un colegiado habilitado o no 😁Para ello indicanos tu numero de colegiatura 😁',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'a25de981d0a91e8b4cb2bd6adcf86fdd'
+}
