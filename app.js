@@ -5,15 +5,18 @@ const QRPortalWeb = require('@bot-whatsapp/portal')
 const BaileysProvider = require('@bot-whatsapp/provider/baileys')
 const MockAdapter = require('@bot-whatsapp/database/mock')
 const API_SERVICIOS = {
-    "1": 'https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado/habilidad/',
-    "2": 'https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado/ultimoAporte/',
-    "3": 'https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado/ultimaConstancia/',
-    "4": 'https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado/deudas/',
-    "5": 'https://ccpapurimac.sacpro.pe/intranet/public/api/colegio/actividades',
-    "6": 'https://ccpapurimac.sacpro.pe/intranet/public/api/colegio/requisitos',
-    "7": 'https://ccpapurimac.sacpro.pe/intranet/public/api/colegio/cuentasBancarias'
-}
-const API = 'https://cipapurimac.sacpro.pe/publico/estadocip/'
+	1: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=habilidad&codigo=",
+	2: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=ultimoAporte&codigo=",
+	3: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=ultimaConstancia&codigo=",
+	4: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=deudas&codigo=",
+	5: "https://ccpapurimac.sacpro.pe/intranet/public/api/colegio?servicio=actividades",
+	6: "https://ccpapurimac.sacpro.pe/intranet/public/api/colegio?servicio=requisitos",
+	7: "https://ccpapurimac.sacpro.pe/intranet/public/api/colegio?servicio=cuentasBancarias",
+	8: "https://ccpapurimac.sacpro.pe/intranet/public/api/chatbot",
+	9: "https://ccpapurimac.sacpro.pe/intranet/public/api/chatbot_encuesta",
+	10: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=celular&codigo="
+};
+
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -45,7 +48,20 @@ const flowServicio1 = addKeyword("###_FLOW_SERVI1_###")
     {capture:true},
     async(ctx,{flowDynamic}) => {
 
-        const respuesta = await axios(API_SERVICIOS["1"]+ctx.body) 
+        //ini solicitud webservice
+        const headers = {
+            'Authorization': 'Bearer 86252fde-da3b-4c0b-b336-53aca7a7148e'
+        };
+
+        const params = {
+            servicio: 'deudas',
+            codigo: 1075,
+        };
+
+        let url = API_SERVICIOS["1"] + ctx.body; 
+        //const respuesta = await axios(API_SERVICIOS["1"]+ctx.body) 
+        const respuesta = axios.get(url, { headers: headers, params: params });
+        //fin solicitud webservice
         
         let respuestaPersonalizada= respuesta.data.data
 
