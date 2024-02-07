@@ -40,6 +40,17 @@ let opciones4 =[
     "2:Es todo, gracias"
 ]
 
+/*
+const flowSecretaria = addKeyword ("#####_secretaria_#####")
+add.Answer("a continuacion te pasaremos con la secretaria",
+async(ctx,{endFlow,gotoFlow})=> {
+    await endFlow()
+    }
+)
+
+
+*/ 
+
 const flowServicio1 = addKeyword("###_FLOW_SERVI1_###")
 .addAnswer("indicanos tu numero de colegiatura",
     {capture:true},
@@ -162,7 +173,7 @@ const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
 )
 
 
-const flowBienvenida =addKeyword(EVENTS.WELCOME)
+const flowBienvenida =addKeyword([EVENTS.WELCOME,"InicializarBOT"])
 .addAnswer(["🤖BIENVENIDO👌mi nombre es *OlivIA* 😘 gracias por contactar al Ilustre Colegio de Abogados de Apurimac"])
 .addAnswer("¿Te gustaria conocer sobre los servicios que tenemos para ti?🧐")
 .addAnswer((opciones2.concat(opciones3)),
@@ -206,6 +217,7 @@ const main = async () => {
         flowServicio7,
         flowDespedida,
         flowVacio,
+        //flowSecretaria
         // flowContinuar
     ])
     const adapterProvider = createProvider(BaileysProvider)
