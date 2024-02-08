@@ -17,7 +17,7 @@ const API_SERVICIOS = {
 	10: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=celular&codigo="
 };
 
-
+const TOKEN_API_SACPRO = "86252fde-da3b-4c0b-b336-53aca7a7148e";
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 let opciones1 = [
@@ -42,8 +42,8 @@ let opciones3 =[
 async function solicitudAxios(servicioValor="",codigoValor="", codigoUrlBaseServicio="" ){
 
     const miHeaders = {
-        'Authorization': 'Bearer 86252fde-da3b-4c0b-b336-53aca7a7148e'
-    };
+			Authorization: `Bearer ${TOKEN_API_SACPRO}`,
+		};
 
     const miParams = {
         servicio: servicioValor,
@@ -56,16 +56,15 @@ async function solicitudAxios(servicioValor="",codigoValor="", codigoUrlBaseServ
 
     const respuesta = await axios.get(url, dataEnvio)
                         .then(response => {
-                            console.log(response.data)
                             return response.data;
                         })
 
     return respuesta.data
 }
 
-function logChatBot(servicioValor="", celularValor="",  colegioValor=""){
+function grabarLogChatBot(servicioValor="", celularValor="",  colegioValor=""){
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 86252fde-da3b-4c0b-b336-53aca7a7148e");
+    myHeaders.append("Authorization", `Bearer ${TOKEN_API_SACPRO}`);
 
     var formdata = new FormData();
     formdata.append("celular", celularValor);
@@ -82,6 +81,24 @@ function logChatBot(servicioValor="", celularValor="",  colegioValor=""){
     fetch(API_SERVICIOS[8], requestOptions)
 }
 
+function grabarLogChatBotEncuesta(fuiUtil="", celularValor=""){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${TOKEN_API_SACPRO}`);
+
+    var formdata = new FormData();
+    formdata.append("fui_util", fuiUtil);
+    formdata.append("celular", celularValor);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch(API_SERVICIOS[9], requestOptions)
+}
+
 const flowServicio1 = addKeyword("###_FLOW_SERVI1_###")
 .addAnswer("indicanos tu numero de colegiatura",
     {capture:true},
@@ -90,7 +107,7 @@ const flowServicio1 = addKeyword("###_FLOW_SERVI1_###")
         let respuestaPersonalizada = await solicitudAxios("habilidad",ctx.body, "1" )
 
         await flowDynamic(respuestaPersonalizada)
-        logChatBot("habilidad", ctx.from, ctx.body)
+        grabarLogChatBot("habilidad", ctx.from, ctx.body)
         return gotoFlow(flowContinuar)
     },
 )
@@ -104,7 +121,7 @@ const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"])
 
 
         await flowDynamic(respuestaPersonalizada)
-        logChatBot("ultimoAporte", ctx.from, ctx.body)
+        grabarLogChatBot("ultimoAporte", ctx.from, ctx.body)
         return gotoFlow(flowContinuar)
         
         
@@ -119,7 +136,7 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"])
         let respuestaPersonalizada = await solicitudAxios("ultimaConstancia",ctx.body, "3" )
 
         await flowDynamic(respuestaPersonalizada)
-        logChatBot("ultimaConstancia", ctx.from, ctx.body)
+        grabarLogChatBot("ultimaConstancia", ctx.from, ctx.body)
         return gotoFlow(flowContinuar)
         
     },
@@ -134,7 +151,7 @@ const flowServicio4 = addKeyword(["###_FLOW_SERVI4_###"])
         let respuestaPersonalizada = await solicitudAxios("deudas",ctx.body, "4" )
 
         await flowDynamic(respuestaPersonalizada)
-        logChatBot("deudas", ctx.from, ctx.body)
+        grabarLogChatBot("deudas", ctx.from, ctx.body)
         return gotoFlow(flowContinuar)
     },
 )
@@ -146,7 +163,7 @@ const flowServicio5 = addKeyword(["###_FLOW_SERVI5_###"])
         let respuestaPersonalizada = await solicitudAxios("actividades","", "5" )
 
         await flowDynamic(respuestaPersonalizada)
-        logChatBot("actividades", ctx.from)
+        grabarLogChatBot("actividades", ctx.from)
         return gotoFlow(flowContinuar)
     },
 )
@@ -159,7 +176,7 @@ const flowServicio6 = addKeyword(["###_FLOW_SERVI6_###"])
         
 
         await flowDynamic(respuestaPersonalizada)
-        logChatBot("requisitos", ctx.from)
+        grabarLogChatBot("requisitos", ctx.from)
         return gotoFlow(flowContinuar)
     },
 )
@@ -171,7 +188,7 @@ const flowServicio7 = addKeyword(["###_FLOW_SERVI7_###"])
         let respuestaPersonalizada = await solicitudAxios("cuentasBancarias","", "7" )
 
         await flowDynamic(respuestaPersonalizada)
-        logChatBot("cuentasBancarias", ctx.from)
+        grabarLogChatBot("cuentasBancarias", ctx.from)
         return gotoFlow(flowContinuar)
         
     },
@@ -218,7 +235,7 @@ const flowSecretariaVacio = addKeyword("___###____")
 
 
 const flowBienvenida =addKeyword([EVENTS.WELCOME,])
-.addAnswer(["🤖BIENVENIDO👌mi nombre es *GremiIA* 😘 gracias por contactar al Ilustre Colegio de Abogados de Apurimac"])
+.addAnswer(["🤖BIENVENIDO👌mi nombre es *GremiIA* 😘 gracias por contactar al Colegio de Contadores Públicos de Apurimac"])
 .addAnswer("¿Te gustaria conocer sobre los servicios que tenemos para ti?🧐")
 .addAnswer((opciones2.concat(opciones3)),
 {capture:true},
@@ -238,7 +255,7 @@ async (ctx, {gotoFlow}) => {
     }else if (ctx.body === '7'){
         return gotoFlow(flowServicio7)
     }else if (ctx.body === '8'){
-        logChatBot("Atención secretaria", ctx.from)
+        grabarLogChatBot("Atención secretaria", ctx.from)
         return gotoFlow(flowSecretariaVacio)
     }else if (ctx.body === '9') {
         return gotoFlow(flowDespedida)
