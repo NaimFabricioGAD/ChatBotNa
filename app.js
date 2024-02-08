@@ -35,77 +35,93 @@ let opciones3 =[
     "5: Consultar proximas actividades",
     "6: Requisitos de colegiatura",
     "7: Cuentas bancarias",
-    "8: Salir"
+    "8: Contactar con humano",
+    "9: Salir"
 ]
 
-let opciones4 =[
-    "1:Listar servicios",
-    "2:Es todo, gracias"
-]
+async function solicitudAxios(servicioValor="",codigoValor="", codigoUrlBaseServicio="" ){
 
-/*
-const flowSecretaria = addKeyword ("#####_secretaria_#####")
-add.Answer("a continuacion te pasaremos con la secretaria",
-async(ctx,{endFlow,gotoFlow})=> {
-    await endFlow()
-    }
-)
+    const miHeaders = {
+        'Authorization': 'Bearer 86252fde-da3b-4c0b-b336-53aca7a7148e'
+    };
 
+    const miParams = {
+        servicio: servicioValor,
+        codigo: codigoValor,
+    };
 
-*/ 
+    let dataEnvio = { headers: miHeaders, params: miParams }
+
+    let url = API_SERVICIOS[codigoUrlBaseServicio] + codigoValor; 
+
+    const respuesta = await axios.get(url, dataEnvio)
+                        .then(response => {
+                            console.log(response.data)
+                            return response.data;
+                        })
+
+    return respuesta.data
+}
+
+function logChatBot(servicioValor="", celularValor="",  colegioValor=""){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer 86252fde-da3b-4c0b-b336-53aca7a7148e");
+
+    var formdata = new FormData();
+    formdata.append("celular", celularValor);
+    formdata.append("servicio", servicioValor);
+    formdata.append("colegio", colegioValor);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch(API_SERVICIOS[8], requestOptions)
+}
 
 const flowServicio1 = addKeyword("###_FLOW_SERVI1_###")
 .addAnswer("indicanos tu numero de colegiatura",
     {capture:true},
-    async(ctx,{flowDynamic}) => {
+    async(ctx,{flowDynamic,gotoFlow}) => {
 
-        //ini solicitud webservice
-        const headers = {
-            'Authorization': 'Bearer 86252fde-da3b-4c0b-b336-53aca7a7148e'
-        };
-
-        const params = {
-            servicio: 'deudas',
-            codigo: 1075,
-        };
-
-        let url = API_SERVICIOS["1"] + ctx.body; 
-        //const respuesta = await axios(API_SERVICIOS["1"]+ctx.body) 
-        const respuesta = axios.get(url, { headers: headers, params: params });
-        //fin solicitud webservice
-        
-        let respuestaPersonalizada= respuesta.data.data
+        let respuestaPersonalizada = await solicitudAxios("habilidad",ctx.body, "1" )
 
         await flowDynamic(respuestaPersonalizada)
-        return;
+        logChatBot("habilidad", ctx.from, ctx.body)
+        return gotoFlow(flowContinuar)
     },
 )
 
 const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"])
 .addAnswer("indicanos tu numero de colegiatura",
     {capture:true},
-    async(ctx,{flowDynamic}) => {
+    async(ctx,{flowDynamic,gotoFlow}) => {
 
-        const respuesta = await axios(API_SERVICIOS["2"]+ctx.body) 
-        
-        let respuestaPersonalizada= respuesta.data.data
+        let respuestaPersonalizada = await solicitudAxios("ultimoAporte",ctx.body, "2" )
+
 
         await flowDynamic(respuestaPersonalizada)
-        return;
+        logChatBot("ultimoAporte", ctx.from, ctx.body)
+        return gotoFlow(flowContinuar)
+        
+        
     },
 )
 
 const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"])
 .addAnswer("indicanos tu numero de colegiatura",
     {capture:true},
-    async(ctx,{flowDynamic}) => {
+    async(ctx,{flowDynamic,gotoFlow}) => {
 
-        const respuesta = await axios(API_SERVICIOS["3"]+ctx.body) 
-        
-        let respuestaPersonalizada= respuesta.data.data
+        let respuestaPersonalizada = await solicitudAxios("ultimaConstancia",ctx.body, "3" )
 
         await flowDynamic(respuestaPersonalizada)
-        return;
+        logChatBot("ultimaConstancia", ctx.from, ctx.body)
+        return gotoFlow(flowContinuar)
+        
     },
 )
 
@@ -113,52 +129,50 @@ const flowServicio4 = addKeyword(["###_FLOW_SERVI4_###"])
 .addAnswer("indicanos tu numero de colegiatura",
     {capture:true},
     
-    async(ctx,{flowDynamic}) => {
+    async(ctx,{flowDynamic,gotoFlow}) => {
 
-        const respuesta = await axios(API_SERVICIOS["4"]+ctx.body) 
-        
-        let respuestaPersonalizada= respuesta.data.data
+        let respuestaPersonalizada = await solicitudAxios("deudas",ctx.body, "4" )
 
         await flowDynamic(respuestaPersonalizada)
-        return;
+        logChatBot("deudas", ctx.from, ctx.body)
+        return gotoFlow(flowContinuar)
     },
 )
 
 const flowServicio5 = addKeyword(["###_FLOW_SERVI5_###"])
 .addAnswer("😎 Las próximas actividades son: ",null,
-    async(ctx,{flowDynamic}) => {
+    async(ctx,{flowDynamic,gotoFlow}) => {
 
-        const respuesta = await axios(API_SERVICIOS["5"]) 
-        console.log(respuesta)
-        let respuestaPersonalizada= respuesta.data.data
+        let respuestaPersonalizada = await solicitudAxios("actividades","", "5" )
 
         await flowDynamic(respuestaPersonalizada)
-        return;
+        logChatBot("actividades", ctx.from)
+        return gotoFlow(flowContinuar)
     },
 )
 
 const flowServicio6 = addKeyword(["###_FLOW_SERVI6_###"])
 .addAnswer("🤗ingresa al siguiente enlace para conocer los requisitos de colegiatura 😉",null,
-    async(ctx,{flowDynamic}) => {
+    async(ctx,{flowDynamic,gotoFlow}) => {
 
-        const respuesta = await axios(API_SERVICIOS["6"]) 
-
-        let respuestaPersonalizada= respuesta.data.data
+        let respuestaPersonalizada = await solicitudAxios("requisitos","", "6" )
+        
 
         await flowDynamic(respuestaPersonalizada)
-        return;
+        logChatBot("requisitos", ctx.from)
+        return gotoFlow(flowContinuar)
     },
 )
 
 const flowServicio7 = addKeyword(["###_FLOW_SERVI7_###"])
 .addAnswer("Estas son las cuentas bancarias :", null,
-    async(ctx,{flowDynamic}) => {
+    async(ctx,{flowDynamic,gotoFlow}) => {
 
-        const respuesta = await axios(API_SERVICIOS["7"]) 
-        console.log(API_SERVICIOS["7"])
-        let respuestaPersonalizada= respuesta.data.data
+        let respuestaPersonalizada = await solicitudAxios("cuentasBancarias","", "7" )
 
         await flowDynamic(respuestaPersonalizada)
+        logChatBot("cuentasBancarias", ctx.from)
+        return gotoFlow(flowContinuar)
         
     },
 )
@@ -168,29 +182,43 @@ const flowVacio = addKeyword("####_VACIOOOOOOO_###")
     return gotoFlow(flowBienvenida,2);
 });
 
-// const flowContinuar = addKeyword("###_continue???_###")
-// .addAnswer(["¿Deseas continuar con tu atencion?"," 1. ✅Si","2. No 🛑",
-// {capture:true},
-//     async(ctx,{gotoFlow})=>{
-//     if (ctx.body==='1'){
-//         return gotoFlow(flowBienvenida,1)
-//     }else if(ctx.body==='2') {
-//         return gotoFlow(flowDespedida)
-//     }
-//     }
-// ])
+const flowContinuar = addKeyword("###_continue_###")
+.addAnswer(
+    ["¿Deseas continuar con tu atencion?","1. ✅Si","2. 🛑No "],
+    {capture:true, delay:3000},
+    async(ctx,{gotoFlow})=>{
+     if (ctx.body=='1'){
+        return gotoFlow(flowBienvenida,1)
+        }else if(ctx.body=='2') {
+            return gotoFlow(flowDespedida)
+        }
+    },
+)
 
 const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
 .addAnswer(["Gracias por contactar al Ilustre Colegio de Abogados de Apurimac😁"])
-.addAnswer("Espero haberte ayudado con tu consulta 🫡🤗 *OlivIA* te decea un buen día. 😅",null,
+.addAnswer("Espero haberte ayudado con tu consulta 🫡🤗 *GremIA* te decea un buen día. 😅",null,
     async(ctx, {endFlow})=>{
         return endFlow();
     }
 )
 
+const flowSecretariaVacio = addKeyword("___###____")
+.addAnswer("😉👌A continuacion te contactaremos con nuestro personal, espere porfavor")
+.addAnswer("recuerda escribir *inicializar* para volver a hablar con *GremIA*")
+.addAction({ capture: true }, async (ctx, { gotoFlow})=> {
+    if((ctx.body).toLowerCase().trim()=="inicializar"){
+        return gotoFlow(flowBienvenida);
+    }else{
+        return gotoFlow(flowSecretariaVacio,2)
+    }
+}
+)
 
-const flowBienvenida =addKeyword([EVENTS.WELCOME,"InicializarBOT"])
-.addAnswer(["🤖BIENVENIDO👌mi nombre es *OlivIA* 😘 gracias por contactar al Ilustre Colegio de Abogados de Apurimac"])
+
+
+const flowBienvenida =addKeyword([EVENTS.WELCOME,])
+.addAnswer(["🤖BIENVENIDO👌mi nombre es *GremiIA* 😘 gracias por contactar al Ilustre Colegio de Abogados de Apurimac"])
 .addAnswer("¿Te gustaria conocer sobre los servicios que tenemos para ti?🧐")
 .addAnswer((opciones2.concat(opciones3)),
 {capture:true},
@@ -210,10 +238,13 @@ async (ctx, {gotoFlow}) => {
     }else if (ctx.body === '7'){
         return gotoFlow(flowServicio7)
     }else if (ctx.body === '8'){
+        logChatBot("Atención secretaria", ctx.from)
+        return gotoFlow(flowSecretariaVacio)
+    }else if (ctx.body === '9') {
         return gotoFlow(flowDespedida)
     }else{
         return gotoFlow(flowVacio)
-    } 
+    }
     
 }
 )
@@ -233,8 +264,8 @@ const main = async () => {
         flowServicio7,
         flowDespedida,
         flowVacio,
-        //flowSecretaria
-        // flowContinuar
+        flowSecretariaVacio,
+        flowContinuar
     ])
     const adapterProvider = createProvider(BaileysProvider)
 
