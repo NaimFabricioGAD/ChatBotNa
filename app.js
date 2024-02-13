@@ -235,6 +235,7 @@ const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
                 grabarLogChatBotEncuesta(ctx.body, ctx.from, ctx.body);
             }
 
+            //aqui agregar flowDynamic con texto ("Listo, hasta la próxima y que tengas un buen día 😉") y luego que se finalice con endFlow
 			return endFlow();
 		}
 	);
