@@ -100,7 +100,8 @@ function grabarLogChatBotEncuesta(fuiUtil="", celularValor=""){
 }
 
 const flowServicio1 = addKeyword("###_FLOW_SERVI1_###")
-.addAnswer("indicanos tu numero de colegiatura",
+.addAnswer(
+    "indícanos tu número de colegiatura",
     {capture:true},
     async(ctx,{flowDynamic,gotoFlow}) => {
 
@@ -113,7 +114,7 @@ const flowServicio1 = addKeyword("###_FLOW_SERVI1_###")
 )
 
 const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"])
-.addAnswer("indicanos tu numero de colegiatura",
+.addAnswer("indícanos tu número de colegiatura",
     {capture:true},
     async(ctx,{flowDynamic,gotoFlow}) => {
 
@@ -129,7 +130,7 @@ const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"])
 )
 
 const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"])
-.addAnswer("indicanos tu numero de colegiatura",
+.addAnswer("indícanos tu número de colegiatura",
     {capture:true},
     async(ctx,{flowDynamic,gotoFlow}) => {
 
@@ -143,7 +144,7 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"])
 )
 
 const flowServicio4 = addKeyword(["###_FLOW_SERVI4_###"])
-.addAnswer("indicanos tu numero de colegiatura",
+.addAnswer("indícanos tu número de colegiatura",
     {capture:true},
     
     async(ctx,{flowDynamic,gotoFlow}) => {
@@ -195,7 +196,10 @@ const flowServicio7 = addKeyword(["###_FLOW_SERVI7_###"])
 )
 
 const flowVacio = addKeyword("####_VACIOOOOOOO_###")
-  .addAnswer("No te he entendido!🤔, porfavor escriba un numero de la lista", null, async (ctx, { gotoFlow }) => {
+  .addAnswer(
+    "No te he entendido!🤔, porfavor escriba un numero de la lista", 
+    null, 
+    async (ctx, { gotoFlow }) => {
     return gotoFlow(flowBienvenida,2);
 });
 
@@ -204,67 +208,88 @@ const flowContinuar = addKeyword("###_continue_###")
     ["¿Deseas continuar con tu atencion?","1. ✅Si","2. 🛑No "],
     {capture:true, delay:3000},
     async(ctx,{gotoFlow})=>{
-     if (ctx.body=='1'){
-        return gotoFlow(flowBienvenida,1)
-        }else if(ctx.body=='2') {
+        if (ctx.body=='1'){
+            return gotoFlow(flowBienvenida,1)
+        }        
+        if(ctx.body=='2') {
             return gotoFlow(flowDespedida)
         }
+        return gotoFlow(flowVacio)
     },
 )
 
 const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
-.addAnswer(["Gracias por contactar al Ilustre Colegio de Abogados de Apurimac😁"])
-.addAnswer("Espero haberte ayudado con tu consulta 🫡🤗 *GremIA* te decea un buen día. 😅",null,
-    async(ctx, {endFlow})=>{
-        return endFlow();
-    }
-)
+	.addAnswer([
+		"Gracias por contactarnos, espero haberte ayudado con tu consulta",
+	])
+	.addAnswer(
+		"Si te fui util, escribe *Si* o de lo contrario *No*",
+		{ capture: true },
+		async (ctx, { endFlow }) => {
+
+            let respuesta = ctx.body.toLowerCase().trim();
+            if (respuesta == "si") {
+                grabarLogChatBotEncuesta(ctx.body, ctx.from, ctx.body);
+            }
+            if (respuesta == "no") {
+                grabarLogChatBotEncuesta(ctx.body, ctx.from, ctx.body);
+            }
+
+			return endFlow();
+		}
+	);
+
+
 
 const flowSecretariaVacio = addKeyword("___###____")
-.addAnswer("😉👌A continuacion te contactaremos con nuestro personal, espere porfavor")
-.addAnswer("recuerda escribir *inicializar* para volver a hablar con *GremIA*")
+.addAnswer("😉👌A continuación te contactaremos con nuestro personal, espere porfavor..")
+.addAnswer("Recuerda escribir *BOT* para volver a hablar con *GremIA*")
 .addAction({ capture: true }, async (ctx, { gotoFlow})=> {
-    if((ctx.body).toLowerCase().trim()=="inicializar"){
-        return gotoFlow(flowBienvenida);
-    }else{
-        return gotoFlow(flowSecretariaVacio,2)
-    }
+    if (ctx.body.toLowerCase().trim() == "BOT") {
+			return gotoFlow(flowBienvenida);
+		} else {
+			return gotoFlow(flowSecretariaVacio, 2);
+		}
 }
 )
 
 
 
-const flowBienvenida =addKeyword([EVENTS.WELCOME,])
-.addAnswer(["🤖BIENVENIDO👌mi nombre es *GremiIA* 😘 gracias por contactar al Colegio de Contadores Públicos de Apurimac"])
-.addAnswer("¿Te gustaria conocer sobre los servicios que tenemos para ti?🧐")
-.addAnswer((opciones2.concat(opciones3)),
-{capture:true},
-async (ctx, {gotoFlow}) => {
-    if (ctx.body === '1') {
-        return gotoFlow(flowServicio1)
-    }else if (ctx.body === '2' ){
-        return gotoFlow(flowServicio2)
-    }else if (ctx.body === '3'){
-        return gotoFlow(flowServicio3)
-    }else if (ctx.body === '4'){
-        return gotoFlow(flowServicio4)
-    }else if (ctx.body === '5'){
-        return gotoFlow(flowServicio5)
-    }else if (ctx.body === '6'){
-        return gotoFlow(flowServicio6)
-    }else if (ctx.body === '7'){
-        return gotoFlow(flowServicio7)
-    }else if (ctx.body === '8'){
-        grabarLogChatBot("Atención secretaria", ctx.from)
-        return gotoFlow(flowSecretariaVacio)
-    }else if (ctx.body === '9') {
-        return gotoFlow(flowDespedida)
-    }else{
-        return gotoFlow(flowVacio)
-    }
-    
-}
-)
+const flowBienvenida = addKeyword([EVENTS.WELCOME])
+	.addAnswer([
+		"BIENVENIDO👌 soy *GremIA*🤖 gracias por contactar al Colegio de Contadores Públicos de Apurímac",
+	])
+	.addAnswer(
+		"Tenemos los siguientes servicios para ti, escribe el número que desees 🫡"
+	)
+	.addAnswer(
+		opciones2.concat(opciones3),
+		{ capture: true },
+		async (ctx, { gotoFlow }) => {
+			if (ctx.body === "1") {
+				return gotoFlow(flowServicio1);
+			} else if (ctx.body === "2") {
+				return gotoFlow(flowServicio2);
+			} else if (ctx.body === "3") {
+				return gotoFlow(flowServicio3);
+			} else if (ctx.body === "4") {
+				return gotoFlow(flowServicio4);
+			} else if (ctx.body === "5") {
+				return gotoFlow(flowServicio5);
+			} else if (ctx.body === "6") {
+				return gotoFlow(flowServicio6);
+			} else if (ctx.body === "7") {
+				return gotoFlow(flowServicio7);
+			} else if (ctx.body === "8") {
+				grabarLogChatBot("Atención secretaria", ctx.from);
+				return gotoFlow(flowSecretariaVacio);
+			} else if (ctx.body === "9") {
+				return gotoFlow(flowDespedida);
+			} else {
+				return gotoFlow(flowVacio);
+			}
+		}
+	);
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // (2) definimos funciones principales 
