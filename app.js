@@ -136,7 +136,15 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"])
 
         let respuestaPersonalizada = await solicitudAxios("ultimaConstancia",ctx.body, "3" )
 
-        await flowDynamic(respuestaPersonalizada)
+        await flowDynamic([{body: respuestaPersonalizada[0]}])
+        await flowDynamic([{body: "Estoy obteniendo el PDF..."}])
+        await flowDynamic([
+					{
+						body: "adjuntando pdf",
+						media: respuestaPersonalizada[1],
+						delay: 10,
+					},
+				]);
         grabarLogChatBot("ultimaConstancia", ctx.from, ctx.body)
         return gotoFlow(flowContinuar)
         
@@ -225,17 +233,21 @@ const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
 	.addAnswer(
 		"Si te fui util, escribe *Si* o de lo contrario *No*",
 		{ capture: true },
-		async (ctx, { endFlow }) => {
+		async (ctx, { endFlow, flowDynamic }) => {
 
             let respuesta = ctx.body.toLowerCase().trim();
+            let despedidaFinal = "";
             if (respuesta == "si") {
+                despedidaFinal = "Me da gusto haberte ayudado 😌, hasta la próxima y que tengas un lindo día 😉";
                 grabarLogChatBotEncuesta(ctx.body, ctx.from, ctx.body);
             }
             if (respuesta == "no") {
+                despedidaFinal = "Espero mejorar pronto 😢 con mas servicios, hasta la próxima y que tengas un lindo día 😉";
                 grabarLogChatBotEncuesta(ctx.body, ctx.from, ctx.body);
             }
 
-            //aqui agregar flowDynamic con texto ("Listo, hasta la próxima y que tengas un buen día 😉") y luego que se finalice con endFlow
+            await flowDynamic(despedidaFinal);
+
 			return endFlow();
 		}
 	);
@@ -246,7 +258,7 @@ const flowSecretariaVacio = addKeyword("___###____")
 .addAnswer("😉👌A continuación te contactaremos con nuestro personal, espere porfavor..")
 .addAnswer("Recuerda escribir *BOT* para volver a hablar con *GremIA*")
 .addAction({ capture: true }, async (ctx, { gotoFlow})=> {
-    if (ctx.body.toLowerCase().trim() == "BOT") {
+    if ((ctx.body).toLowerCase().trim() == "bot") {
 			return gotoFlow(flowBienvenida);
 		} else {
 			return gotoFlow(flowSecretariaVacio, 2);
