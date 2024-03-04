@@ -1,6 +1,7 @@
 //=============================================================================
 // INI IMPORTACIONES
 //=============================================================================
+require("dotenv").config();
 
 const {
 	addKeyword,
@@ -14,6 +15,8 @@ const axios = require("axios").default;
 //=============================================================================
 // INI INICIALIZANDO VARIABLES
 //=============================================================================
+const TOKEN_API_SACPRO = process.env.TOKEN_API_SACPRO;
+
 const API_SERVICIOS = {
 	1: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=habilidad&codigo=",
 	2: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=ultimoAporte&codigo=",
@@ -26,8 +29,6 @@ const API_SERVICIOS = {
 	9: "https://ccpapurimac.sacpro.pe/intranet/public/api/chatbot_encuesta",
 	10: "https://ccpapurimac.sacpro.pe/intranet/public/api/agremiado?servicio=celular&codigo=",
 };
-
-const TOKEN_API_SACPRO = "86252fde-da3b-4c0b-b336-53aca7a7148e";
 
 let opciones1 = ["0:Consultar otro colegiado"];
 
