@@ -301,7 +301,7 @@ const flowSecretariaVacio = addKeyword("___###____")
 
 const flowBienvenida = addKeyword([EVENTS.WELCOME])
 	.addAnswer([
-		"BIENVENIDO soy *GremIA*🤖, gracias por contactar al Colegio de Contadores Públicos de Apurímac",
+		"BIENVENIDO, gracias por contactar al Colegio de Contadores Públicos de Apurímac",
 	])
 	.addAnswer(
 		"Tenemos los siguientes servicios para ti, escribe el número que desees 🫡"
