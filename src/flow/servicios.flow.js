@@ -125,7 +125,7 @@ function grabarLogChatBotEncuesta(fuiUtil = "", celularValor = "") {
 // INI SERVICIOS
 //=============================================================================
 const flowServicio1 = addKeyword("###_FLOW_SERVI1_###").addAnswer(
-	"Bríndeme su número de colegiatura",
+	"Bríndeme su número de colegiatura: Ej.023-XXXX",
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -141,7 +141,7 @@ const flowServicio1 = addKeyword("###_FLOW_SERVI1_###").addAnswer(
 );
 
 const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"]).addAnswer(
-	"Bríndeme su número de colegiatura",
+	"Bríndeme su número de colegiatura: Ej.023-XXXX",
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -157,7 +157,7 @@ const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"]).addAnswer(
 );
 
 const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
-	"Bríndeme su número de colegiatura",
+	"Bríndeme su número de colegiatura: Ej.023-XXXX",
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -185,7 +185,7 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
 );
 
 const flowServicio4 = addKeyword(["###_FLOW_SERVI4_###"]).addAnswer(
-	"Bríndeme su número de colegiatura",
+	"Bríndeme su número de colegiatura: Ej.023-XXXX",
 	{ capture: true },
 
 	async (ctx, { flowDynamic, gotoFlow }) => {
