@@ -40,10 +40,10 @@ let opciones2 = [
 ];
 
 let opciones3 = [
-	"5: Consultar proximas actividades",
+	"5: Consultar próximas actividades",
 	"6: Requisitos de colegiatura",
 	"7: Cuentas bancarias",
-	"8: Contactar con humano",
+	"8: Contactar con secretaría",
 	"9: Salir",
 ];
 //FIN INICIALIZANDO VARIABLES
