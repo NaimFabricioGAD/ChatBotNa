@@ -43,11 +43,11 @@ let opciones2 = [
 
 let opciones3 = [
 	"👉 *E:* Consultar próximas actividades",	//5
-	"👉 *F:* Requisitos de colegiatura",			//6
-	"👉 *G:* Cuentas bancarias",					//7
+	"👉 *F:* Requisitos de colegiatura",		//6
+	"👉 *G:* Cuentas bancarias",				//7
 	"👉 *H:* Enviar voucher de pago",			//8
 	"👉 *I:* Contactar con secretaría",			//9
-	"👉 *J:* Salir",								//10
+	"👉 *J:* Salir",							//10
 ];
 //FIN INICIALIZANDO VARIABLES
 
@@ -171,7 +171,13 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
 		
 		await flowDynamic([{ body: respuestaPersonalizada[0] }]);
 
-		if (!respuestaPersonalizada[0].includes("No pertenece a esta sede")) {
+		if (
+			!respuestaPersonalizada[0].includes("No pertenece a esta sede") &&
+			!(
+				respuestaPersonalizada[1] !== undefined &&
+				respuestaPersonalizada[1].includes("No tiene ninguna constancia de habilidad")
+			)
+		) {
 			await flowDynamic([{ body: "Estoy obteniendo el PDF...⏳" }]);
 			await flowDynamic([
 				{
@@ -180,6 +186,13 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
 					delay: 10,
 				},
 			]);
+		}else{
+			if(
+				respuestaPersonalizada[1] !== undefined &&
+				respuestaPersonalizada[1].includes("No tiene ninguna constancia de habilidad")
+			){
+				await flowDynamic(respuestaPersonalizada[1]);
+			}
 		}
 			
 		grabarLogChatBot("ultimaConstancia", ctx.from, ctx.body);
@@ -261,13 +274,15 @@ const flowVacio = addKeyword("####_VACIOOOOOOO_###").addAnswer(
 );
 
 const flowContinuar = addKeyword("###_continue_###").addAnswer(
-	["¿Deseas volver a consultarme?", "1. ✅Si", "2. 🛑No "],
+	["¿Deseas volver a consultarme?", "👉 *S:* ✅Si", "👉 *N:* 🛑No "],
 	{ capture: true, delay: 3000 },
 	async (ctx, { gotoFlow }) => {
-		if (ctx.body == "1") {
+		let respuesta = ctx.body.toLowerCase().trim();
+
+		if (respuesta == "si" || respuesta == "s") {
 			return gotoFlow(flowBienvenida, 1);
 		}
-		if (ctx.body == "2") {
+		if (respuesta == "no" || respuesta == "n") {
 			return gotoFlow(flowDespedida);
 		}
 		return gotoFlow(flowVacio);
@@ -279,17 +294,17 @@ const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
 		"Gracias por contactarnos, espero haberte ayudado con tu consulta",
 	])
 	.addAnswer(
-		["Si te fui util calificame con:", "1: ✅Si", "2: 🛑No"],
+		["Si te fui util porfavor calificame con:", "👉 *S:* ✅Si", "👉 *N:* 🛑No"],
 		{ capture: true },
 		async (ctx, { endFlow, flowDynamic }) => {
 			let respuesta = ctx.body.toLowerCase().trim();
 			let despedidaFinal = "";
-			if (respuesta == "si" || respuesta == "1") {
+			if (respuesta == "si" || respuesta == "s") {
 				despedidaFinal =
 					"Me da gusto haberte ayudado 😌. Hasta la próxima! y que tengas un día maravilloso 😉";
 				grabarLogChatBotEncuesta("si", ctx.from);
 			}
-			if (respuesta == "no" || respuesta == "2") {
+			if (respuesta == "no" || respuesta == "n") {
 				despedidaFinal =
 					"Espero ser más útil pronto para ti, estoy en mejora continua. Hasta la próxima! y que tengas un día maravilloso 😉";
 				grabarLogChatBotEncuesta("no", ctx.from);
@@ -305,7 +320,7 @@ const flowSecretariaVacio = addKeyword("___###____")
 	.addAnswer(
 		"😉👌A continuación te contactaremos con nuestro personal, espere porfavor.."
 	)
-	.addAnswer("Recuerda escribir *BOT* para volver a hablar la asistente virtual")
+	.addAnswer("Recuerda escribir *BOT* para volver a hablar con la asistente virtual")
 	.addAction({ capture: true }, async (ctx, { gotoFlow }) => {
 		if (ctx.body.toLowerCase().trim() == "bot") {
 			return gotoFlow(flowBienvenida);
@@ -336,43 +351,22 @@ const flowBienvenida = addKeyword([EVENTS.WELCOME])
 				F: flowServicio6,
 				G: flowServicio7,
 				H: flowServicio8,
-				I: () => {
-					grabarLogChatBot("Contactar secretaria", ctx.from);
-					return gotoFlow(flowSecretariaVacio);
-				},
+				// I: () => {
+				// 	grabarLogChatBot("Contactar secretaria", ctx.from);
+				// 	return flowSecretariaVacio;
+				// },
 				J: flowDespedida
 			};
 
 			if(resumenServicios.hasOwnProperty(opcionSeleccionada)){
 				return gotoFlow(resumenServicios[opcionSeleccionada]);
+			}else if(opcionSeleccionada=="I"){
+				grabarLogChatBot("Contactar secretaria", ctx.from);
+				return gotoFlow(flowSecretariaVacio);
 			}else{
 				return gotoFlow(flowVacio);
 			}
 
-			// if (opcionSeleccionada === "1") {
-			// 	return gotoFlow(resumenServicios.A);
-			// } else if (opcionSeleccionada === "2") {
-			// 	return gotoFlow(resumenServicios.B);
-			// } else if (opcionSeleccionada === "3") {
-			// 	return gotoFlow(resumenServicios.C);
-			// } else if (opcionSeleccionada === "4") {
-			// 	return gotoFlow(resumenServicios.D);
-			// } else if (opcionSeleccionada === "5") {
-			// 	return gotoFlow(resumenServicios.E);
-			// } else if (opcionSeleccionada === "6") {
-			// 	return gotoFlow(resumenServicios.F);
-			// } else if (opcionSeleccionada === "7") {
-			// 	return gotoFlow(resumenServicios.G);
-			// } else if (opcionSeleccionada === "8") {
-			// 	return gotoFlow(resumenServicios.H);
-			// } else if (opcionSeleccionada === "9") {
-			// 	grabarLogChatBot("Contactar secretaria", ctx.from);
-			// 	return gotoFlow(flowSecretariaVacio);
-			// } else if (opcionSeleccionada === "10") {
-			// 	return gotoFlow(flowDespedida);
-			// } else {
-			// 	return gotoFlow(flowVacio);
-			// }
 		}
 	);
 
