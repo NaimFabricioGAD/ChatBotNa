@@ -301,12 +301,12 @@ const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
 			let despedidaFinal = "";
 			if (respuesta == "si" || respuesta == "s") {
 				despedidaFinal =
-					"Me da gusto haberte ayudado 😌. Hasta la próxima! y que tengas un día maravilloso 😉";
+					"Me alegra haber sido de ayuda. Nos vemos la próxima vez y que tengas un día excelente 😉";
 				grabarLogChatBotEncuesta("si", ctx.from);
 			}
 			if (respuesta == "no" || respuesta == "n") {
 				despedidaFinal =
-					"Espero ser más útil pronto para ti, estoy en mejora continua. Hasta la próxima! y que tengas un día maravilloso 😉";
+					"Espero ser más útil pronto para ti, estoy en mejora continua. ¡Hasta la próxima! y que tengas un día maravilloso 😉";
 				grabarLogChatBotEncuesta("no", ctx.from);
 			}
 
