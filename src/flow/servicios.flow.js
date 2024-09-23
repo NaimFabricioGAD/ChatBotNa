@@ -128,7 +128,7 @@ function grabarLogChatBotEncuesta(fuiUtil = "", celularValor = "") {
 // INI SERVICIOS
 //=============================================================================
 const flowServicio1 = addKeyword("###_FLOW_SERVI1_###").addAnswer(
-	"Bríndeme su número de colegiatura: Ej.023-XXXX",
+	"Bríndeme su N° de DNI ó colegiatura: Ej.023-XXXX ",
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -144,7 +144,7 @@ const flowServicio1 = addKeyword("###_FLOW_SERVI1_###").addAnswer(
 );
 
 const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"]).addAnswer(
-	"Bríndeme su número de colegiatura: Ej.023-XXXX",
+	"Bríndeme su N° de DNI ó colegiatura: Ej.023-XXXX ",
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -160,7 +160,7 @@ const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"]).addAnswer(
 );
 
 const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
-	"Bríndeme su número de colegiatura: Ej.023-XXXX",
+	"Bríndeme su N° de DNI ó colegiatura: Ej.023-XXXX ",
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -168,14 +168,16 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
 			ctx.body,
 			"3"
 		);
-		
+
 		await flowDynamic([{ body: respuestaPersonalizada[0] }]);
 
 		if (
 			!respuestaPersonalizada[0].includes("No pertenece a esta sede") &&
 			!(
 				respuestaPersonalizada[1] !== undefined &&
-				respuestaPersonalizada[1].includes("No tiene ninguna constancia de habilidad")
+				respuestaPersonalizada[1].includes(
+					"No tiene ninguna constancia de habilidad"
+				)
 			)
 		) {
 			await flowDynamic([{ body: "Estoy obteniendo el PDF...⏳" }]);
@@ -186,22 +188,24 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
 					delay: 10,
 				},
 			]);
-		}else{
-			if(
+		} else {
+			if (
 				respuestaPersonalizada[1] !== undefined &&
-				respuestaPersonalizada[1].includes("No tiene ninguna constancia de habilidad")
-			){
+				respuestaPersonalizada[1].includes(
+					"No tiene ninguna constancia de habilidad"
+				)
+			) {
 				await flowDynamic(respuestaPersonalizada[1]);
 			}
 		}
-			
+
 		grabarLogChatBot("ultimaConstancia", ctx.from, ctx.body);
 		return gotoFlow(flowContinuar);
 	}
 );
 
 const flowServicio4 = addKeyword(["###_FLOW_SERVI4_###"]).addAnswer(
-	"Bríndeme su número de colegiatura: Ej.023-XXXX",
+	"Bríndeme su N° de DNI ó colegiatura: Ej.023-XXXX ",
 	{ capture: true },
 
 	async (ctx, { flowDynamic, gotoFlow }) => {
