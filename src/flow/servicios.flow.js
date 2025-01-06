@@ -127,8 +127,8 @@ function grabarLogChatBotEncuesta(fuiUtil = "", celularValor = "") {
 //=============================================================================
 // INI SERVICIOS
 //=============================================================================
-const flowServicio1 = addKeyword("###_FLOW_SERVI1_###").addAnswer(
-	"Bríndeme su N° de DNI ó colegiatura: Ej.023-XXXX ",
+const flowServicio1 = addKeyword(EVENTS.ACTION).addAnswer(
+	process.env.TXT_DNI_COLEGIATURA,
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -143,8 +143,8 @@ const flowServicio1 = addKeyword("###_FLOW_SERVI1_###").addAnswer(
 	}
 );
 
-const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"]).addAnswer(
-	"Bríndeme su N° de DNI ó colegiatura: Ej.023-XXXX ",
+const flowServicio2 = addKeyword(EVENTS.ACTION).addAnswer(
+	process.env.TXT_DNI_COLEGIATURA,
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -159,8 +159,8 @@ const flowServicio2 = addKeyword(["###_FLOW_SERVI2_###"]).addAnswer(
 	}
 );
 
-const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
-	"Bríndeme su N° de DNI ó colegiatura: Ej.023-XXXX ",
+const flowServicio3 = addKeyword(EVENTS.ACTION).addAnswer(
+	process.env.TXT_DNI_COLEGIATURA,
 	{ capture: true },
 	async (ctx, { flowDynamic, gotoFlow }) => {
 		let respuestaPersonalizada = await solicitudAxios(
@@ -204,8 +204,8 @@ const flowServicio3 = addKeyword(["###_FLOW_SERVI3_###"]).addAnswer(
 	}
 );
 
-const flowServicio4 = addKeyword(["###_FLOW_SERVI4_###"]).addAnswer(
-	"Bríndeme su N° de DNI ó colegiatura: Ej.023-XXXX ",
+const flowServicio4 = addKeyword(EVENTS.ACTION).addAnswer(
+	process.env.TXT_DNI_COLEGIATURA,
 	{ capture: true },
 
 	async (ctx, { flowDynamic, gotoFlow }) => {
@@ -217,7 +217,7 @@ const flowServicio4 = addKeyword(["###_FLOW_SERVI4_###"]).addAnswer(
 	}
 );
 
-const flowServicio5 = addKeyword(["###_FLOW_SERVI5_###"]).addAnswer(
+const flowServicio5 = addKeyword(EVENTS.ACTION).addAnswer(
 	"😎 Las próximas actividades son: ",
 	null,
 	async (ctx, { flowDynamic, gotoFlow }) => {
@@ -229,7 +229,7 @@ const flowServicio5 = addKeyword(["###_FLOW_SERVI5_###"]).addAnswer(
 	}
 );
 
-const flowServicio6 = addKeyword(["###_FLOW_SERVI6_###"]).addAnswer(
+const flowServicio6 = addKeyword(EVENTS.ACTION).addAnswer(
 	"Ingresa al siguiente enlace para conocer los requisitos de colegiatura 😉",
 	null,
 	async (ctx, { flowDynamic, gotoFlow }) => {
@@ -241,7 +241,7 @@ const flowServicio6 = addKeyword(["###_FLOW_SERVI6_###"]).addAnswer(
 	}
 );
 
-const flowServicio7 = addKeyword(["###_FLOW_SERVI7_###"]).addAnswer(
+const flowServicio7 = addKeyword(EVENTS.ACTION).addAnswer(
 	"Estas son las cuentas bancarias :",
 	null,
 	async (ctx, { flowDynamic, gotoFlow }) => {
@@ -257,7 +257,7 @@ const flowServicio7 = addKeyword(["###_FLOW_SERVI7_###"]).addAnswer(
 	}
 );
 
-const flowServicio8 = addKeyword(["###_FLOW_SERVI8_###"]).addAnswer(
+const flowServicio8 = addKeyword(EVENTS.ACTION).addAnswer(
 	"Ingresa al siguiente enlace para enviar tu voucher 😉",
 	null,
 	async (ctx, { flowDynamic, gotoFlow }) => {
@@ -269,7 +269,7 @@ const flowServicio8 = addKeyword(["###_FLOW_SERVI8_###"]).addAnswer(
 	}
 );
 
-const flowVacio = addKeyword("####_VACIOOOOOOO_###").addAnswer(
+const flowVacio = addKeyword(EVENTS.ACTION).addAnswer(
 	"No te entendí🤔. Porfavor, selecciona un número de la lista:",
 	null,
 	async (ctx, { gotoFlow }) => {
@@ -277,7 +277,7 @@ const flowVacio = addKeyword("####_VACIOOOOOOO_###").addAnswer(
 	}
 );
 
-const flowContinuar = addKeyword("###_continue_###").addAnswer(
+const flowContinuar = addKeyword(EVENTS.ACTION).addAnswer(
 	["¿Deseas volver a consultarme?", "👉 *S:* ✅Si", "👉 *N:* 🛑No "],
 	{ capture: true, delay: 3000 },
 	async (ctx, { gotoFlow }) => {
@@ -293,7 +293,7 @@ const flowContinuar = addKeyword("###_continue_###").addAnswer(
 	}
 );
 
-const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
+const flowDespedida = addKeyword(EVENTS.ACTION)
 	.addAnswer([
 		"Gracias por contactarnos, espero haberte ayudado con tu consulta",
 	])
@@ -316,15 +316,17 @@ const flowDespedida = addKeyword("###_FLOW_SERVI7_###")
 
 			await flowDynamic(despedidaFinal);
 
-			return endFlow();
+			//return endFlow();
 		}
 	);
 
-const flowSecretariaVacio = addKeyword("___###____")
+const flowSecretariaVacio = addKeyword(EVENTS.ACTION)
 	.addAnswer(
 		"😉👌A continuación te contactaremos con nuestro personal, espere porfavor.."
 	)
-	.addAnswer("Recuerda escribir *BOT* para volver a hablar con la asistente virtual")
+	.addAnswer(
+		"Recuerda escribir *BOT* para volver a hablar con la asistente virtual"
+	)
 	.addAction({ capture: true }, async (ctx, { gotoFlow }) => {
 		if (ctx.body.toLowerCase().trim() == "bot") {
 			return gotoFlow(flowBienvenida);
