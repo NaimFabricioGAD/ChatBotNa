@@ -35,10 +35,10 @@ const API_SERVICIOS = {
 let opciones1 = ["👉 *0:* Consultar otro colegiado"];
 
 let opciones2 = [
-	"👉 *A:* Consultar habilidad",				//1
-	"👉 *B:* Consultar último aporte",			//2
-	"👉 *C:* Última constancia de habilidad",	//3
-	"👉 *D:* Consultar deudas",					//4
+	"👉 *A:* Consultar habilitación", 			//1
+	"👉 *B:* Consultar último aporte", 			//2
+	"👉 *C:* Última constancia de habilitación",//3
+	"👉 *D:* Consultar deudas", 				//4
 ];
 
 let opciones3 = [
@@ -270,7 +270,7 @@ const flowServicio8 = addKeyword(EVENTS.ACTION).addAnswer(
 );
 
 const flowVacio = addKeyword(EVENTS.ACTION).addAnswer(
-	"No te entendí🤔. Porfavor, selecciona un número de la lista:",
+	"No te entendí🤔. Porfavor, selecciona una opción de la lista:",
 	null,
 	async (ctx, { gotoFlow }) => {
 		return gotoFlow(flowBienvenida, 2);
@@ -300,7 +300,7 @@ const flowDespedida = addKeyword(EVENTS.ACTION)
 	.addAnswer(
 		["Si te fui util porfavor calificame con:", "👉 *S:* ✅Si", "👉 *N:* 🛑No"],
 		{ capture: true },
-		async (ctx, { endFlow, flowDynamic }) => {
+		async (ctx, { flowDynamic }) => {
 			let respuesta = ctx.body.toLowerCase().trim();
 			let despedidaFinal = "";
 			if (respuesta == "si" || respuesta == "s") {
@@ -315,10 +315,13 @@ const flowDespedida = addKeyword(EVENTS.ACTION)
 			}
 
 			await flowDynamic(despedidaFinal);
-
-			//return endFlow();
 		}
-	);
+	) 
+	// Nuevo paso para hacer endFlow
+	.addAnswer(null, null, async (ctx, { endFlow }) => {
+		// No hacemos flowDynamic aquí
+		return endFlow();
+	});
 
 const flowSecretariaVacio = addKeyword(EVENTS.ACTION)
 	.addAnswer(
