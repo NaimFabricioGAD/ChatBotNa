@@ -27,6 +27,7 @@ const API_SERVICIOS = {
 	6: BASE_URL_API + "/api/colegio?servicio=requisitos",
 	7: BASE_URL_API + "/api/colegio?servicio=cuentasBancarias",
 	8: BASE_URL_API + "/api/colegio?servicio=enviarVoucher",
+	9: BASE_URL_API + "/api/colegio?servicio=horarioAtencion",
 	97: BASE_URL_API + "/api/agremiado?servicio=celular&codigo=",
 	98: BASE_URL_API + "/api/chatbot",
 	99: BASE_URL_API + "/api/chatbot_encuesta"
@@ -46,8 +47,9 @@ let opciones3 = [
 	"👉 *F:* Requisitos de colegiatura",		//6
 	"👉 *G:* Cuentas bancarias",				//7
 	"👉 *H:* Enviar voucher de pago",			//8
-	"👉 *I:* Contactar con secretaría",			//9
-	"👉 *J:* Salir",							//10
+	"👉 *I:* Horarios de atención",				//9
+	"👉 *J:* Contactar con secretaría",			
+	"👉 *X:* Salir",							
 ];
 //FIN INICIALIZANDO VARIABLES
 
@@ -269,6 +271,18 @@ const flowServicio8 = addKeyword(EVENTS.ACTION).addAnswer(
 	}
 );
 
+const flowServicio9 = addKeyword(EVENTS.ACTION).addAnswer(
+	"Nuestros horarios de atención son: ",
+	null,
+	async (ctx, { flowDynamic, gotoFlow }) => {
+		let respuestaPersonalizada = await solicitudAxios("horarioAtencion", "", "9");
+
+		await flowDynamic(respuestaPersonalizada);
+		grabarLogChatBot("horarioAtencion", ctx.from);
+		return gotoFlow(flowContinuar);
+	}
+);
+
 const flowVacio = addKeyword(EVENTS.ACTION).addAnswer(
 	"No te entendí🤔. Porfavor, selecciona una opción de la lista:",
 	null,
@@ -297,12 +311,16 @@ const flowDespedida = addKeyword(EVENTS.ACTION)
 	.addAnswer([
 		"Gracias por contactarnos, espero haberte ayudado con tu consulta",
 	])
-	.addAnswer(
+	.addAnswer([
+		"Hasta pronto",
+	])
+	/*.addAnswer(
 		["Si te fui util porfavor calificame con:", "👉 *S:* ✅Si", "👉 *N:* 🛑No"],
 		{ capture: true },
 		async (ctx, { flowDynamic }) => {
 			let respuesta = ctx.body.toLowerCase().trim();
 			let despedidaFinal = "";
+			
 			if (respuesta == "si" || respuesta == "s") {
 				despedidaFinal =
 					"Me alegra haber sido de ayuda. Nos vemos la próxima vez y que tengas un día excelente 😉";
@@ -316,7 +334,7 @@ const flowDespedida = addKeyword(EVENTS.ACTION)
 
 			await flowDynamic(despedidaFinal);
 		}
-	) 
+	)*/ 
 	// Nuevo paso para hacer endFlow
 	.addAnswer(null, null, async (ctx, { endFlow }) => {
 		// No hacemos flowDynamic aquí
@@ -331,11 +349,22 @@ const flowSecretariaVacio = addKeyword(EVENTS.ACTION)
 		"Recuerda escribir *BOT* para volver a hablar con la asistente virtual"
 	)
 	.addAction({ capture: true }, async (ctx, { gotoFlow }) => {
-		if (ctx.body.toLowerCase().trim() == "bot") {
+
+		const botPalabras = ["bot", "bot ", " bot"];
+
+		// Crear una expresión regular que busque cualquiera de las palabras clave
+		const botRegex = new RegExp(`\\b(${botPalabras.join("|")})\\b`, "i");
+
+		// Procesar el texto de entrada que envió el usuario
+		const textoUsuario = ctx.body.toLowerCase().trim();
+
+		// Verificar si alguna de las palabras clave está presente
+		if (botRegex.test(textoUsuario)) {
 			return gotoFlow(flowBienvenida);
 		} else {
 			return gotoFlow(flowSecretariaVacio, 2);
 		}
+
 	});
 
 const flowBienvenida = addKeyword([EVENTS.WELCOME])
@@ -348,9 +377,43 @@ const flowBienvenida = addKeyword([EVENTS.WELCOME])
 		),
 		{ capture: true },
 		async (ctx, { gotoFlow }) => {
-			
-			let opcionSeleccionada = ctx.body.toUpperCase().trim();
 
+			//ini controlando palabras de despedida
+			const despedidaPalabras = [
+				"GRACIAS",
+				"BYE",
+				"ADIOS",
+				"CHAO",
+				"CHAU",
+				"SALIR",
+				"EXIT",
+				"HASTA LUEGO",
+				"HASTA PRONTO",
+				"HASTA LA VISTA",
+				"NOS VEMOS",
+				"HASTA OTRA",
+				"HASTA NUNCA",
+				"HASTA SIEMPRE",
+				"HASTA LA PROXIMA",
+				"HASTA LUEGUITO",
+			];
+
+			// Crear una expresión regular que busque cualquiera de las palabras clave
+			const despedidaRegex = new RegExp(
+				`\\b(${despedidaPalabras.join("|")})\\b`,
+				"i"
+			);
+
+			// Procesar el texto de entrada que envió el usuario
+			const textoUsuario = ctx.body.trim().toUpperCase();
+
+			// Verificar si alguna de las palabras clave está presente
+			if (despedidaRegex.test(textoUsuario)) {
+				return gotoFlow(flowDespedida);
+			}
+			//fin controlando palabras de despedida
+
+			//resumen de servicios a seleccionar
 			let resumenServicios = {
 				A: flowServicio1,
 				B: flowServicio2,
@@ -360,22 +423,18 @@ const flowBienvenida = addKeyword([EVENTS.WELCOME])
 				F: flowServicio6,
 				G: flowServicio7,
 				H: flowServicio8,
-				// I: () => {
-				// 	grabarLogChatBot("Contactar secretaria", ctx.from);
-				// 	return flowSecretariaVacio;
-				// },
-				J: flowDespedida
+				I: flowServicio9,
+				X: flowDespedida,
 			};
 
-			if(resumenServicios.hasOwnProperty(opcionSeleccionada)){
-				return gotoFlow(resumenServicios[opcionSeleccionada]);
-			}else if(opcionSeleccionada=="I"){
+			if (resumenServicios.hasOwnProperty(textoUsuario)) {
+				return gotoFlow(resumenServicios[textoUsuario]);
+			} else if (textoUsuario == "J") {
 				grabarLogChatBot("Contactar secretaria", ctx.from);
 				return gotoFlow(flowSecretariaVacio);
-			}else{
+			} else {
 				return gotoFlow(flowVacio);
 			}
-
 		}
 	);
 
@@ -391,6 +450,7 @@ module.exports = {
 	flowServicio6,
 	flowServicio7,
 	flowServicio8,
+	flowServicio9,
 	flowVacio,
 	flowContinuar,
 	flowDespedida,
