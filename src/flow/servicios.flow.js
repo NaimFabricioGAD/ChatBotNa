@@ -28,9 +28,10 @@ const API_SERVICIOS = {
 	7: BASE_URL_API + "/api/colegio?servicio=cuentasBancarias",
 	8: BASE_URL_API + "/api/colegio?servicio=enviarVoucher",
 	9: BASE_URL_API + "/api/colegio?servicio=horarioAtencion",
+	10: BASE_URL_API + "/api/colegio?servicio=infoExtra",
 	97: BASE_URL_API + "/api/agremiado?servicio=celular&codigo=",
 	98: BASE_URL_API + "/api/chatbot",
-	99: BASE_URL_API + "/api/chatbot_encuesta"
+	99: BASE_URL_API + "/api/chatbot_encuesta",
 };
 
 let opciones1 = ["👉 *0:* Consultar otro colegiado"];
@@ -49,6 +50,7 @@ let opciones3 = [
 	"👉 *H:* Enviar voucher de pago",			//8
 	"👉 *I:* Horarios de atención",				//9
 	"👉 *J:* Contactar con secretaría",			
+	"👉 *K:* Información CONILA 2025",			//10	
 	"👉 *X:* Salir",							
 ];
 //FIN INICIALIZANDO VARIABLES
@@ -283,6 +285,18 @@ const flowServicio9 = addKeyword(EVENTS.ACTION).addAnswer(
 	}
 );
 
+const flowServicio10 = addKeyword(EVENTS.ACTION).addAnswer(
+	"Información CONILA 2025: ",
+	null,
+	async (ctx, { flowDynamic, gotoFlow }) => {
+		let respuestaPersonalizada = await solicitudAxios("infoExtra", "", "10");
+
+		await flowDynamic(respuestaPersonalizada);
+		grabarLogChatBot("infoExtra", ctx.from);
+		return gotoFlow(flowContinuar);
+	}
+);
+
 const flowVacio = addKeyword(EVENTS.ACTION).addAnswer(
 	"No te entendí🤔. Porfavor, selecciona una opción de la lista:",
 	null,
@@ -424,6 +438,7 @@ const flowBienvenida = addKeyword([EVENTS.WELCOME])
 				G: flowServicio7,
 				H: flowServicio8,
 				I: flowServicio9,
+				K: flowServicio10,
 				X: flowDespedida,
 			};
 
@@ -451,6 +466,7 @@ module.exports = {
 	flowServicio7,
 	flowServicio8,
 	flowServicio9,
+	flowServicio10,
 	flowVacio,
 	flowContinuar,
 	flowDespedida,
